@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
+// API routes
+// httpm://localhost:3000//exampleProduct
+app.use("/api/v1/inventory", inventoryRoutes);
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
