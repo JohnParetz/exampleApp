@@ -2,7 +2,7 @@ console.log(__dirname)
 
 const express = require('express');
 const app = express();
-const routes = require('./routes');
+const routes = require('./src/inventory/routes');
 
 app.use(express.json()); 
 app.use('/', routes);
