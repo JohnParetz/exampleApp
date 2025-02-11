@@ -1,11 +1,11 @@
-const express = require("express");
-const inventoryRoutes = require("./src/inventory/routes");
+const express = require('express');
+const router = express.Router();
+const controller = require('./controller');
 
-const app = express();
-app.use(express.json());
+router.get('/potatoes', controller.getAllPotatoes);
+router.get('/potatoes/:id', controller.getPotatoById);
+router.post('/potatoes', controller.createPotato);
+router.put('/potatoes/:id', controller.updatePotato);
+router.delete('/potatoes/:id', controller.deletePotato);
 
-app.use("/inventory", inventoryRoutes);
-
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
-});
+module.exports = router;
