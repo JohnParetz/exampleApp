@@ -1,13 +1,24 @@
-console.log(__dirname) 
-
 const express = require('express');
 const app = express();
-const routes = require('./src/inventory/routes');
+const path = require('path');
 
-app.use(express.json()); 
-app.use('/', routes);
+console.log(`Current directory: ${__dirname}`); 
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
+const routesPath = path.join(__dirname, 'src', 'inventory', 'routes');
+console.log(`Routes path: ${routesPath}`); 
+
+try {
+    const routes = require(routesPath);
+
+    app.use(express.json());
+    app.use('/', routes);
+
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`);
+    });
+
+} catch (error) {
+    console.error(`Error loading routes: ${error.message}`);
+   
+}
