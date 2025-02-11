@@ -1,6 +1,16 @@
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    user: 'jmparet', 
+    host: 'localhost',
+    database: 'newapp_u3ga', 
+    password: 'user4', 
+    port: 5432,
+});
+
 const express = require('express');
 const app = express();
-const path = require('path');
+const path = require('/.routes_v1'); // changed to routesv1
 
 console.log(`Current directory: ${__dirname}`); 
 
