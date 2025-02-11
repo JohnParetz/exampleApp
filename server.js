@@ -10,7 +10,7 @@ const pool = new Pool({
 
 const express = require('express');
 const app = express();
-const path = require('/.routes_v1'); // changed to routesv1
+const path = require('/.src/inventory/routes_v1'); // changed to routesv1
 
 console.log(`Current directory: ${__dirname}`); 
 
