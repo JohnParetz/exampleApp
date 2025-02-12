@@ -1,4 +1,5 @@
 const express = require('express');
+// const cors = requre("cors"); we need this
 const app = express();
 const path = require('path');
 const pool = require('./db'); 
