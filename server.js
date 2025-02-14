@@ -1,25 +1,40 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const pool = require('./db'); 
+const port = process.env.PORT || 5000; // Use environment port or 5000
 
-console.log(`Current directory: ${__dirname}`);
+// COMMENT OUT EVERYTHING EXCEPT THE BASIC ROUTE HANDLER FOR TESTING
 
-const routesV1Path = path.join(__dirname, 'src', 'inventory', 'routes_v1'); 
-console.log(`Routes v1 path: ${routesV1Path}`);
+// app.use(express.json()); // Commented out
+// app.use(express.urlencoded({ extended: false })); // Commented out
+// const path = require('path'); // Commented out
+// app.use(express.static(path.join(__dirname, 'client/build'))); // Commented out
 
-try {
-    const routesV1 = require(routesV1Path); 
+// BASIC ROUTE HANDLER (This is what we're testing)
+app.get('/', (req, res) => {
+  res.send('Hello World!'); // Simple test output
+});
 
-    app.use(express.json());
-    app.use('/api/v1', routesV1); 
+// app.get('/api/recipes', (req, res) => { // Commented out
+//   // ...
+// });
 
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-        console.log(`Server listening on port ${PORT}`);
-    });
+// app.post('/api/recipes', (req, res) => { // Commented out
+//   // ...
+// });
 
-} catch (error) {
-    console.error(`Error loading routes: ${error.message}`);
-    
-}
+// app.get('/api/recipes/:id', (req, res) => { // Commented out
+//   // ...
+// });
+
+// app.delete('/api/recipes/:id', (req, res) => { // Commented out
+//   // ...
+// });
+
+// // The "catchall" handler to send back index.html on all other requests
+// app.get('*', (req, res) => { // Commented out
+//   // res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
+
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});

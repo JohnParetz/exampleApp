@@ -4,7 +4,7 @@ const controller = require('./controller');
 
 
 
-router.get('/', (req, res) => {  // This is the important part!
+router.get('/', (req, res) => {  
     res.send('Hello from the root path!'); 
 });
 router.get('api/v1/potatoes', controller.getAllPotatoes);

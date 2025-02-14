@@ -9,6 +9,8 @@ const Pool = require("pg").Pool;
         password: "user4",
         port: 5432,
     });
-    
+    pool.connect()
+  .then(() => console.log('Database connected'))
+  .catch(err => console.error('Database error:', err));
 
 module.exports = pool;
