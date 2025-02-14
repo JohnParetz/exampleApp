@@ -6,7 +6,6 @@ const pool = require('./db');
 
 app.use(express.json());
 
-// GET route (as you had it)
 app.get('/api/potatoes', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM potato_types');
@@ -14,30 +13,6 @@ app.get('/api/potatoes', async (req, res) => {
     } catch (error) {
         console.error("Error fetching potatoes:", error);
         res.status(500).json({ error: "Failed to fetch potatoes" });
-    }
-});
-
-// POST route (Complete Logic)
-app.post('/api/potatoes', async (req, res) => {
-    const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
-
-    if (!type_name || !description || !best_uses || !starch_level || !skin_color || !flesh_color) {
-        return res.status(400).json({ error: "All fields are required" }); // Validate input
-    }
-
-
-    try {
-        const result = await pool.query(
-            'INSERT INTO potato_types (type_name, description, best_uses, starch_level, skin_color, flesh_color) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [type_name, description, best_uses, starch_level, skin_color, flesh_color]
-        );
-        res.status(201).json(result.rows[0]); // 201 Created
-    } catch (error) {
-        console.error("Error creating potato:", error);
-        if (error.code === '23505') { // Check for unique constraint violation
-            return res.status(400).json({ error: "Potato type already exists" });
-        }
-        res.status(500).json({ error: "Failed to create potato" });
     }
 });
 

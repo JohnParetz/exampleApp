@@ -1,10 +1,11 @@
-// db.js
 const { Pool } = require('pg');
 
-const connectionString = process.env.DATABASE_URL || `postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`; // For local
-
 const pool = new Pool({
-    connectionString: connectionString,
+    user: jmparet,
+    host: localhost,
+    database: newapp_u3ga,
+    password: QBI8WWH0EmyToU1ApTdDEgJvdiEUYlxq,
+    port: 5432,
 });
 
 pool.connect()
