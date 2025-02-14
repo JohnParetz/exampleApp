@@ -1,39 +1,34 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000; // Use environment port or 5000
+const port = process.env.PORT || 5000;
+const pool = require('./db'); // Import your database connection
 
-// COMMENT OUT EVERYTHING EXCEPT THE BASIC ROUTE HANDLER FOR TESTING
+app.use(express.json()); // To parse JSON request bodies (for POST)
 
-// app.use(express.json()); // Commented out
-// app.use(express.urlencoded({ extended: false })); // Commented out
-// const path = require('path'); // Commented out
-// app.use(express.static(path.join(__dirname, 'client/build'))); // Commented out
-
-// BASIC ROUTE HANDLER (This is what we're testing)
-app.get('/', (req, res) => {
-  res.send('Hello World!'); // Simple test output
+app.get('/api/potatoes', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM potato_types');
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching potatoes:", error);
+    res.status(500).json({ error: "Failed to fetch potatoes" }); // Send error response
+  }
 });
 
-// app.get('/api/recipes', (req, res) => { // Commented out
-//   // ...
-// });
+app.post('/api/potatoes', async (req, res) => {
+  const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
 
-// app.post('/api/recipes', (req, res) => { // Commented out
-//   // ...
-// });
-
-// app.get('/api/recipes/:id', (req, res) => { // Commented out
-//   // ...
-// });
-
-// app.delete('/api/recipes/:id', (req, res) => { // Commented out
-//   // ...
-// });
-
-// // The "catchall" handler to send back index.html on all other requests
-// app.get('*', (req, res) => { // Commented out
-//   // res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+  try {
+    const result = await pool.query(
+      'INSERT INTO potato_types (type_name, description, best_uses, starch_level, skin_color, flesh_color) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [type_name, description, best_uses, starch_level, skin_color, flesh_color]
+    );
+    res.status(201).json(result.rows[0]); // 201 Created, send back the created potato
+  } catch (error) {
+    console.error("Error creating potato:", error);
+    res.status(500).json({ error: "Failed to create potato" });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
