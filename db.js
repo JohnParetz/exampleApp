@@ -1,15 +1,14 @@
-const Pool = require("pg").Pool;
+// db.js
+const { Pool } = require('pg');
+
+const connectionString = process.env.DATABASE_URL || `postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`; // For local
 
 const pool = new Pool({
-  user: "jmparet",
-  host: "localhost",
-  database: "newapp_u3ga",
-  password: "user4",
-  port: 5432,
+    connectionString: connectionString,
 });
 
 pool.connect()
-  .then(() => console.log('Database connected'))
-  .catch(err => console.error('Database error:', err));
+    .then(() => console.log('Database connected'))
+    .catch(err => console.error('Database error:', err));
 
 module.exports = pool;
