@@ -1,10 +1,11 @@
+
 const { Pool } = require('pg');
 
 const pool = new Pool({
     user: "jmparet",
-    host: "localhost", 
+    host: "dpg-cuh3hgpu0jms73fu27j0-a", //localhost
     database: "newapp_u3ga",
-    password: "user4",
+    password: "QBI8WWH0EmyToU1ApTdDEgJvdiEUYlxq",  //user4
     port: 5432,
 });
 
@@ -13,3 +14,4 @@ pool.connect()
     .catch(err => console.error('Database error:', err));
 
 module.exports = pool;
+
