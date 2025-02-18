@@ -6,7 +6,7 @@ const pool = new Pool({
     host: "localhost", //localhost
     database: "newapp_u3ga", //newapp_u3ga
     password: "user4",  //user4
-    port: 5432,
+    port: 5433, //5432
 });
 
 pool.connect()
