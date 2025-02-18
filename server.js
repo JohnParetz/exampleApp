@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
+console.log("Current directory:", __dirname);
+console.log("Checking db.js exists:", require('fs').existsSync('./db.js'));
+
 const pool = require('C:/Projects/exampleApp/db.js');
 
 app.use(express.json());
