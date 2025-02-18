@@ -10,9 +10,9 @@ const pool = new Pool({
 
 });
 
-console.log("Connection details:", pool.options); // Log for debugging
+console.log("Connection details:", pool.options); 
 
-pool.connect() // Test the connection immediately after creating the pool
+pool.connect() 
     .then(() => console.log('Database connected'))
     .catch(err => console.error('Database connection error:', err));
 
