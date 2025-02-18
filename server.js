@@ -6,7 +6,7 @@ const pool = require('./db');
 
 app.use(express.json());
 
-// Routes (example)
+// Routes
 app.get('/api/potatoes', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM potato_types');
@@ -17,7 +17,7 @@ app.get('/api/potatoes', async (req, res) => {
     }
 });
 
-// ... other routes
+
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
