@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
-const pool = require('.src/inventory/db');
+const pool = require('./db');
 
 app.use(express.json());
 
