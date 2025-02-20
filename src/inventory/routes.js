@@ -1,16 +1,21 @@
+
 const express = require('express');
 const router = express.Router();
-const controller = require('./controller');
+const pool = require('./db'); 
 
+router.get('/potatoes', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM potato_types'); 
 
+        
+        res.json(result.rows); 
 
-router.get('/', (req, res) => {  // This is the important part!
-    res.send('Hello from the root path!'); 
+        
+
+    } catch (error) {
+        console.error("Error fetching potatoes:", error);
+        res.status(500).json({ error: "Failed to fetch potatoes" }); 
+    }
 });
-router.get('api/v1/potatoes', controller.getAllPotatoes);
-router.get('api/v1/potatoes/:id', controller.getPotatoById);
-router.post('api/v1/potatoes', controller.createPotato);
-router.put('api/v1/potatoes/:id', controller.updatePotato);
-router.delete('api/v1/potatoes/:id', controller.deletePotato);
 
 module.exports = router;
