@@ -1,9 +1,8 @@
-
 require('dotenv').config();
 const express = require('express'); 
 const app = express(); 
 const port = process.env.PORT || 5000; 
-const pool = require('./db.js'); // database connection db.js **** error here: Error: Cannot find module './db'
+const pool = require('./db'); // database connection db.js **** error here: Error: Cannot find module './db'
 
 app.use(express.json());
 
@@ -66,4 +65,3 @@ app.put('/api/potatoes/:id', async (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
-
