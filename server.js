@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express'); 
 const app = express(); 
 const port = process.env.PORT || 5000; 
-const pool = require('./db'); // database connection db.js **** error here: Error: Cannot find module './db'
+const pool = require('./db');
 
 app.use(express.json());
 
