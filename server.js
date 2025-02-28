@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express'); 
 const app = express(); 
 const port = process.env.PORT || 5000; 
-const pool = require('./db'); // database connection db.js **** error here: Error: Cannot find module './db'
+const pool = require('./db');
 
 app.use(express.json());
 
@@ -32,13 +32,14 @@ app.get('/api/potatoes', async (req, res) => {
     }
 });
 
-// POST write info ----------------
+// POST write info ---------------- changed
 app.post('/api/potatoes', async (req, res) => {
     try {
-        const { type, color, size, origin } = req.body; 
+        const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
+
         const result = await pool.query(
-            'INSERT INTO potato_types (type, color, size, origin) VALUES ($1, $2, $3, $4) RETURNING *',
-            [type, color, size, origin]
+            'INSERT INTO potato_types (type_name, description, best_uses, starch_level, skin_color, flesh_color) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [type_name, description, best_uses, starch_level, skin_color, flesh_color]
         );
         res.status(201).json(result.rows[0]); 
     } catch (error) {
