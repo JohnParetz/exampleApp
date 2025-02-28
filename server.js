@@ -35,10 +35,11 @@ app.get('/api/potatoes', async (req, res) => {
 // POST write info ----------------
 app.post('/api/potatoes', async (req, res) => {
     try {
-        const { type, color, size, origin } = req.body; 
+        const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
+
         const result = await pool.query(
-            'INSERT INTO potato_types (type, color, size, origin) VALUES ($1, $2, $3, $4) RETURNING *',
-            [type, color, size, origin]
+            'INSERT INTO potato_types (type_name, description, best_uses, starch_level, skin_color, flesh_color) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [type_name, description, best_uses, starch_level, skin_color, flesh_color]
         );
         res.status(201).json(result.rows[0]); 
     } catch (error) {
