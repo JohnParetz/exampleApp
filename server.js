@@ -47,14 +47,14 @@ app.post('/api/potatoes', async (req, res) => {
     }
 });
 
-/// PUT create new info by saving it with its id
+/// PUT create new info by saving it with its id -> is wrong do potato_id
 app.put('/api/potatoes/:id', async (req, res) => {
     try {
         const { type, color, size, origin } = req.body;
         const { id } = req.params; 
         const result = await pool.query(
             'UPDATE potato_types SET type_name = $1, description = $2, best_uses = $3, starch_level = $4, skin_color = $5, flesh_color = $6 WHERE potato_id = $7 RETURNING *',
-            [type_name, description, best_uses, starch_level, skin_color, flesh_color, id]
+            [type_name, description, best_uses, starch_level, skin_color, flesh_color, potato_id]
         );
         if (!result.rowCount) { 
             return res.status(404).json({ error: 'Potato not found' }); d
