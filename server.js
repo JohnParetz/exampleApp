@@ -47,7 +47,7 @@ app.post('/api/potatoes', async (req, res) => {
     }
 });
 
-/// PUT create new info by saving it with its id -> is wrong do potato_id update
+/// PUT create new info by saving it with its id -> is wrong do potato_id update, commit
 app.put('/api/potatoes/:id', async (req, res) => {
     try {
         const { type, color, size, origin } = req.body;
