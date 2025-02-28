@@ -32,7 +32,7 @@ app.get('/api/potatoes', async (req, res) => {
     }
 });
 
-// POST write info ----------------
+// POST write info ---------------- changed
 app.post('/api/potatoes', async (req, res) => {
     try {
         const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
