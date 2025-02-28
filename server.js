@@ -32,7 +32,7 @@ app.get('/api/potatoes', async (req, res) => {
     }
 });
 
-// POST write info ---------------- changed
+// POST write info ---------------- 
 app.post('/api/potatoes', async (req, res) => {
     try {
         const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
@@ -47,7 +47,7 @@ app.post('/api/potatoes', async (req, res) => {
     }
 });
 
-/// PUT create new info by saving it with its id -> is wrong do potato_id update, commit
+/// PUT create new info by saving it with its id
 app.put('/api/potatoes/:id', async (req, res) => {
     try {
         const { type, color, size, origin } = req.body;
