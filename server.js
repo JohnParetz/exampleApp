@@ -57,7 +57,7 @@ app.put('/api/potatoes/:id', async (req, res) => {
             [type_name, description, best_uses, starch_level, skin_color, flesh_color, potato_id]
         );
         if (!result.rowCount) { 
-            return res.status(404).json({ error: 'Potato not found' }); d
+            return res.status(404).json({ error: 'Potato not found' });
         }
         res.json(result.rows[0]); 
     } catch (error) {
