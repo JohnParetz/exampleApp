@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express'); 
 const app = express(); 
 const port = process.env.PORT || 5000; 
-const pool = require('./db'); // database connection db.js **** error here: Error: Cannot find module './db'
+const pool = require('./db');
 
 app.use(express.json());
 
@@ -32,13 +32,14 @@ app.get('/api/potatoes', async (req, res) => {
     }
 });
 
-// POST write info ----------------
+// POST write info ---------------- 
 app.post('/api/potatoes', async (req, res) => {
     try {
-        const { type, color, size, origin } = req.body; 
+        const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
+
         const result = await pool.query(
-            'INSERT INTO potato_types (type, color, size, origin) VALUES ($1, $2, $3, $4) RETURNING *',
-            [type, color, size, origin]
+            'INSERT INTO potato_types (type_name, description, best_uses, starch_level, skin_color, flesh_color) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [type_name, description, best_uses, starch_level, skin_color, flesh_color]
         );
         res.status(201).json(result.rows[0]); 
     } catch (error) {
@@ -46,22 +47,21 @@ app.post('/api/potatoes', async (req, res) => {
     }
 });
 
-// PUT create new info by saving it with its id
+/// PUT create new info by saving it with its id
 app.put('/api/potatoes/:id', async (req, res) => {
     try {
-        const { type, color, size, origin } = req.body;
-        const { id } = req.params; 
+        const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body; 
+        const { id } = req.params;
         const result = await pool.query(
-            'UPDATE potato_types SET type = $1, color = $2, size = $3, origin = $4 WHERE id = $5 RETURNING *',
-            [type, color, size, origin, id] 
+            'UPDATE potato_types SET type_name = $1, description = $2, best_uses = $3, starch_level = $4, skin_color = $5, flesh_color = $6 WHERE potato_id = $7 RETURNING *',
+            [type_name, description, best_uses, starch_level, skin_color, flesh_color, id] 
         );
-        if (!result.rowCount) { 
-            return res.status(404).json({ error: 'Potato not found' }); d
+        if (!result.rowCount) {
+            return res.status(404).json({ error: 'Potato not found' });
         }
-        res.json(result.rows[0]); 
+        res.json(result.rows[0]);
     } catch (error) {
-        res.status(500).json({ error: error.message }); 
+        res.status(500).json({ error: error.message });
     }
 });
-
 app.listen(port, () => console.log(`Server listening on port ${port}`));
