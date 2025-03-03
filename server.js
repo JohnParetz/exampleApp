@@ -10,9 +10,7 @@ app.use(express.json());
 app.get('/api/potatoes/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        console.log("Request ID:", id);
-        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]);
-        console.log("Query Result:", result.rows);
+        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]); // Corrected query
 
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
@@ -20,7 +18,6 @@ app.get('/api/potatoes/:id', async (req, res) => {
             res.status(404).json({ error: 'Potato not found' });
         }
     } catch (error) {
-        console.error("Error:", error); 
         res.status(500).json({ error: error.message });
     }
 });
