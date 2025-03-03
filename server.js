@@ -10,7 +10,7 @@ app.use(express.json());
 app.get('/api/potatoes/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]); // Corrected query
+        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]);
 
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
