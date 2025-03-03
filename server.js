@@ -6,7 +6,7 @@ const pool = require('./db');
 
 app.use(express.json());
 
-// GET all potatoes
+// GET all potatoes -------------
 app.get('/api/potatoes', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM potato_types');
@@ -16,7 +16,7 @@ app.get('/api/potatoes', async (req, res) => {
   }
 });
 
-// GET potato by ID
+// GET potato by ID --------------
 app.get('/api/potatoes/:id', async (req, res) => {
   try {
     const { id } = req.params;
