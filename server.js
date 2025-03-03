@@ -4,13 +4,13 @@ const app = express();
 const port = process.env.PORT || 5000; 
 const pool = require('./db');
 
-app.use(express.json()); 
+app.use(express.json());
 
 // GET get info --------------
 app.get('/api/potatoes/:id', async (req, res) => {
     try {
-        const { id } = req.params; 
-        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]); 
+        const { id } = req.params;
+        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]);
 
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
