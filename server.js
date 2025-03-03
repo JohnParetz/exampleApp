@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 5000; 
 const pool = require('./db');
 
-app.use(express.json());
+app.use(express.json()); 
 
 // GET get info --------------
 app.get('/api/potatoes/:id', async (req, res) => {
