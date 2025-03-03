@@ -1,3 +1,4 @@
+new server.js
 require('dotenv').config();
 const express = require('express'); 
 const app = express(); 
@@ -7,28 +8,18 @@ const pool = require('./db');
 app.use(express.json());
 
 // GET get info --------------
-app.get('/api/potatoes', async (req, res) => {
+app.get('/api/potatoes/:id', async (req, res) => {
     try {
-        let query = 'SELECT * FROM potato_types';
-        const where = []; 
-        const values = []; 
+        const { id } = req.params; 
+        const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]); 
 
-        
-        if (req.query.type) {  
-            where.push('type = $1'); 
-            values.push(req.query.type);
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]);
+        } else {
+            res.status(404).json({ error: 'Potato not found' });
         }
-
-        
-
-        if (where.length) { 
-            query += ' WHERE ' + where.join(' AND '); 
-        }
-
-        const result = await pool.query(query, values); 
-        res.json(result.rows); 
     } catch (error) {
-        res.status(500).json({ error: error.message }); 
+        res.status(500).json({ error: error.message });
     }
 });
 
