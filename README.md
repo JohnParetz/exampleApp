@@ -22,7 +22,8 @@ body
     "flesh_color": "Purple"
 }
 
-PUT https://recipe-app-mrts.onrender.com/api/potatoes/48 (save changes for id 48)
+PUT 
+https://recipe-app-mrts.onrender.com/api/potatoes/48 (save changes for id 48)
 body
 {
     "type_name": "Purple Peruvian",
