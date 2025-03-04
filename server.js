@@ -1,68 +1,91 @@
 require('dotenv').config();
 const express = require('express');
+const { Pool } = require('pg');
 const app = express();
 const port = process.env.PORT || 5000;
-const pool = require('./db');
 
 app.use(express.json());
 
-// GET all potatoes -------------
-app.get('/api/potatoes', async (req, res) => {
+
+
+// Get all recipes
+app.get('/api/recipes', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM potato_types');
+    const result = await pool.query('SELECT * FROM recipe_data');
     res.json(result.rows);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// GET potato by ID --------------
-app.get('/api/potatoes/:id', async (req, res) => {
+// Get recipe ID
+app.get('/api/recipes/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await pool.query('SELECT * FROM potato_types WHERE potato_id = $1', [id]);
-
+    const result = await pool.query('SELECT * FROM recipe_data WHERE recipe_id = $1', [id]);
     if (result.rows.length > 0) {
       res.json(result.rows[0]);
     } else {
-      res.status(404).json({ error: 'Potato not found' });
+      res.status(404).json({ error: 'Recipe not found' });
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// POST write info ----------------
-app.post('/api/potatoes', async (req, res) => {
+// Create a recipe
+app.post('/api/recipes', async (req, res) => {
   try {
-    const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
-
+    const { recipe_name, ingredients, instructions } = req.body;
     const result = await pool.query(
-      'INSERT INTO potato_types (type_name, description, best_uses, starch_level, skin_color, flesh_color) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [type_name, description, best_uses, starch_level, skin_color, flesh_color]
+      'INSERT INTO recipe_data (recipe_name, ingredients, instructions) VALUES ($1, $2, $3) RETURNING *',
+      [recipe_name, ingredients, instructions]
     );
     res.status(201).json(result.rows[0]);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-/// PUT create new info by saving it with its id
-app.put('/api/potatoes/:id', async (req, res) => {
-  try {
-    const { type_name, description, best_uses, starch_level, skin_color, flesh_color } = req.body;
-    const { id } = req.params;
-    const result = await pool.query(
-      'UPDATE potato_types SET type_name = $1, description = $2, best_uses = $3, starch_level = $4, skin_color = $5, flesh_color = $6 WHERE potato_id = $7 RETURNING *',
-      [type_name, description, best_uses, starch_level, skin_color, flesh_color, id]
-    );
-    if (!result.rowCount) {
-      return res.status(404).json({ error: 'Potato not found' });
+// Save recipe
+app.put('/api/recipes/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { recipe_name, ingredients, instructions } = req.body;
+      const result = await pool.query(
+        'UPDATE recipe_data SET recipe_name = $1, ingredients = $2, instructions = $3 WHERE recipe_id = $4 RETURNING *',
+        [recipe_name, ingredients, instructions, id]
+      );
+      if (result.rowCount > 0) {
+        res.json(result.rows[0]);
+      } else {
+        res.status(404).json({ error: 'Recipe not found' });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-    res.json(result.rows[0]);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+  });
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+// Delete a recipe
+app.delete('/api/recipes/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await pool.query('DELETE FROM recipe_data WHERE recipe_id = $1 RETURNING *', [id]);
+      if (result.rowCount > 0) {
+        res.json({ message: 'Recipe deleted successfully' });
+      } else {
+        res.status(404).json({ error: 'Recipe not found' });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
