@@ -13,7 +13,7 @@
 
     <script>
         async function fetchDatabaseData() {
-            const response = await fetch('/api/recipes'); // Fetch all recipes for database view
+            const response = await fetch('/api/recipes');
             const data = await response.json();
 
             let tableHTML = '<table><thead><tr>';
