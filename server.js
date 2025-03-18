@@ -6,10 +6,7 @@ const pool = require('./db');
 const path = require('path');
 
 app.use(express.json());
-
-
 app.use(express.static(path.join(__dirname, '')));
-
 
 app.get('/api/recipes', async (req, res) => {
     try {
@@ -78,6 +75,20 @@ app.delete('/api/recipes/:id', async (req, res) => {
         } else {
             res.status(404).json({ error: 'Recipe not found' });
         }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.get('/api/search', async (req, res) => {
+    try {
+        const { query } = req.query;
+        const result = await pool.query(
+            'SELECT * FROM potato_recipes WHERE recipe_name ILIKE $1 OR ingredients ILIKE $1 OR instructions ILIKE $1',
+            [`%${query}%`]
+        );
+        res.json(result.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
