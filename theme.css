@@ -1,0 +1,30 @@
+/* hometheme.css */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+#recipe-form, #recipe-list {
+    margin-bottom: 20px;
+}
+
+input[type="text"], textarea, input[type="number"] {
+    width: 300px;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
