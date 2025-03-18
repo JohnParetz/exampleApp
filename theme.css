@@ -1,23 +1,42 @@
-/* hometheme.css */
 body {
     font-family: sans-serif;
     margin: 20px;
+    background-color: #f4f4f4; 
 }
 
 #recipe-form, #recipe-list {
     margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#recipe-form h2, #recipe-list h2 {
+    margin-top: 0;
+    color: #333;
 }
 
 input[type="text"], textarea, input[type="number"] {
-    width: 300px;
-    padding: 8px;
-    margin-bottom: 10px;
+    width: calc(100% - 20px); 
+    padding: 10px;
+    margin-bottom: 15px;
     box-sizing: border-box;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
 }
 
 button {
-    padding: 10px 15px;
+    padding: 12px 20px;
+    background-color: #007bff; 
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+button:hover {
 }
 
 ul {
@@ -26,5 +45,15 @@ ul {
 }
 
 li {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee; 
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li button {
+  margin-left: 5px;
 }
