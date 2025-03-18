@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database View</title>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+    <h1>Database View</h1>
+    <div id="database-display">
+    </div>
+
+    <script>
+        async function fetchDatabaseData() {
+            const response = await fetch('/api/recipes'); // Fetch all recipes for database view
+            const data = await response.json();
+
+            let tableHTML = '<table><thead><tr>';
+            if (data.length > 0) {
+              for (const key in data[0]) {
+                tableHTML += `<th><a href="?sort=${key}">${key}</a></th>`;
+              }
+            }
+            tableHTML += '</tr></thead><tbody>';
+
+            data.forEach(row => {
+                tableHTML += '<tr>';
+                for (const key in row) {
+                    tableHTML += `<td>${row[key]}</td>`;
+                }
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</tbody></table>';
+            document.getElementById('database-display').innerHTML = tableHTML;
+        }
+
+        fetchDatabaseData();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const sortColumn = urlParams.get('sort');
+
+        if(sortColumn){
+          fetch(`/api/recipes?sort=${sortColumn}`)
+          .then(res => res.json())
+          .then(data => {
+            let tableHTML = '<table><thead><tr>';
+            if (data.length > 0) {
+              for (const key in data[0]) {
+                tableHTML += `<th><a href="?sort=${key}">${key}</a></th>`;
+              }
+            }
+            tableHTML += '</tr></thead><tbody>';
+
+            data.forEach(row => {
+                tableHTML += '<tr>';
+                for (const key in row) {
+                    tableHTML += `<td>${row[key]}</td>`;
+                }
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</tbody></table>';
+            document.getElementById('database-display').innerHTML = tableHTML;
+          })
+        }
+    </script>
+</body>
+</html>
