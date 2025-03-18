@@ -5,66 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database View</title>
     <link rel="stylesheet" href="theme.css">
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="database.css">
 </head>
 <body>
     <h1>Database View</h1>
-    <div id="database-display">
+
+    <div id="search-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button id="searchButton">Search</button>
     </div>
 
+    <div id="grid"></div>
+
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <script>
-        async function fetchDatabaseData() {
-            const response = await fetch('/api/recipes');
+        let grid;
+
+        async function fetchData(searchQuery = '') {
+            let url = '/api/recipes';
+            if (searchQuery) {
+                url = `/api/search?query=${searchQuery}`;
+            }
+
+            const response = await fetch(url);
             const data = await response.json();
 
-            let tableHTML = '<table><thead><tr>';
-            if (data.length > 0) {
-              for (const key in data[0]) {
-                tableHTML += `<th><a href="?sort=${key}">${key}</a></th>`;
-              }
+            const columns = data.length > 0 ? Object.keys(data[0]).map(key => ({ name: key, sort: true })) : [];
+            const gridData = data.map(row => Object.values(row));
+
+            if (grid) {
+                grid.updateConfig({ columns, data: gridData }).forceRender();
+            } else {
+                grid = new gridjs.Grid({
+                    columns: columns,
+                    data: gridData,
+                    search: false,
+                    pagination: {
+                        limit: 10
+                    }
+                }).render(document.getElementById("grid"));
             }
-            tableHTML += '</tr></thead><tbody>';
-
-            data.forEach(row => {
-                tableHTML += '<tr>';
-                for (const key in row) {
-                    tableHTML += `<td>${row[key]}</td>`;
-                }
-                tableHTML += '</tr>';
-            });
-
-            tableHTML += '</tbody></table>';
-            document.getElementById('database-display').innerHTML = tableHTML;
         }
 
-        fetchDatabaseData();
+        fetchData();
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const sortColumn = urlParams.get('sort');
-
-        if(sortColumn){
-          fetch(`/api/recipes?sort=${sortColumn}`)
-          .then(res => res.json())
-          .then(data => {
-            let tableHTML = '<table><thead><tr>';
-            if (data.length > 0) {
-              for (const key in data[0]) {
-                tableHTML += `<th><a href="?sort=${key}">${key}</a></th>`;
-              }
-            }
-            tableHTML += '</tr></thead><tbody>';
-
-            data.forEach(row => {
-                tableHTML += '<tr>';
-                for (const key in row) {
-                    tableHTML += `<td>${row[key]}</td>`;
-                }
-                tableHTML += '</tr>';
-            });
-
-            tableHTML += '</tbody></table>';
-            document.getElementById('database-display').innerHTML = tableHTML;
-          })
-        }
+        document.getElementById('searchButton').addEventListener('click', () => {
+            const searchQuery = document.getElementById('searchInput').value;
+            fetchData(searchQuery);
+        });
     </script>
 </body>
 </html>
