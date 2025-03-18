@@ -3,10 +3,14 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const pool = require('./db');
+const path = require('path');
 
 app.use(express.json());
 
-// Get all recipes
+
+app.use(express.static(path.join(__dirname, '')));
+
+
 app.get('/api/recipes', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM potato_recipes');
@@ -17,7 +21,6 @@ app.get('/api/recipes', async (req, res) => {
     }
 });
 
-// Get recipe by ID
 app.get('/api/recipes/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -33,7 +36,6 @@ app.get('/api/recipes/:id', async (req, res) => {
     }
 });
 
-// Create a recipe
 app.post('/api/recipes', async (req, res) => {
     try {
         const { recipe_name, ingredients, instructions, prep_time, cook_time, serving_size } = req.body;
@@ -48,7 +50,6 @@ app.post('/api/recipes', async (req, res) => {
     }
 });
 
-// Update a recipe
 app.put('/api/recipes/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -68,7 +69,6 @@ app.put('/api/recipes/:id', async (req, res) => {
     }
 });
 
-// Delete a recipe
 app.delete('/api/recipes/:id', async (req, res) => {
     try {
         const { id } = req.params;
