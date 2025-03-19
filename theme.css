@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
     margin: 20px;
-    background-color: #f4f4f4; 
+    background-color: #f4f4f4;
 }
 
 #recipe-form, #recipe-list {
@@ -17,12 +17,12 @@ body {
     color: #333;
 }
 
-input[type="text"], textarea, input[type="number"] {
+input[type="text"], textarea, input[type="number"], select {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
@@ -34,6 +34,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 5px;
 }
 
 button:hover {
@@ -56,5 +57,22 @@ li:last-child {
 }
 
 li button {
-  margin-left: 5px;
+    margin-left: 5px;
+    padding: 8px 12px;
+    font-size: 0.9em; 
+}
+
+a button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+a button:hover{
+    background-color: #0056b3;
 }
