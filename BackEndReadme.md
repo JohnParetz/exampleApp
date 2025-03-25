@@ -49,7 +49,7 @@ npm install cors
 npm install pg
 ```
 
-## How it works (testing on back end, postmand needed)
+## How it works (testing on backend, postmand needed)
 #### Add your render url in postman to test the backend
 
 ## API Endpoints

@@ -7,9 +7,9 @@ This is the user interface for managing potato recipes. It lets you add, view, e
 
 ## How to Use
 
-1.  Open `index.html` in your browser
-2.  Use the form to add or edit recipes
-3.  Click "View Database" to see all recipes
+1.  Open `https://recipe-app-mrts.onrender.com` in your browser
+2.  Use the web service to to add or edit or delite recipes
+3.  Click "View Database" to see all recipes data
 
 ## Key Files
 
@@ -17,10 +17,6 @@ This is the user interface for managing potato recipes. It lets you add, view, e
 * `database.html`: Database view
 * `theme.css`, `database.css`: Styling
 * JavaScript files: Code for making it work
-
-## Notes
-
-* Needs the backend API to function fully
 
 ## How it works
 
