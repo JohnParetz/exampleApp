@@ -12,7 +12,7 @@ This is the API for managing potato recipes. It stores and retrieves recipes fro
 * Needs a `recipes` table
 
 ``` bash
-REATE TABLE potato_recipes (
+CREATE TABLE potato_recipes (
     recipe_id SERIAL PRIMARY KEY,
     recipe_name VARCHAR(255) NOT NULL,
     ingredients TEXT NOT NULL,
