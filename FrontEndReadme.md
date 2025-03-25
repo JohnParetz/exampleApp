@@ -24,18 +24,16 @@ This is the user interface for managing potato recipes. It lets you add, view, e
 
 ## How it works
 
-* Select your recipe
-* Add, edit, delte
-* Save recipe
+### Select your recipe, Add, edit, delte, Save recipe
 
 ![alt text](<Screenshot 2025-03-17 225529-1.png>)
 
-* Your new recipe will be showing here
+### Your new recipe will be showing here
 
 ![alt text](<Screenshot 2025-03-17 225544.png>)
 
-* Click on database to be send to the sorting table
+### Click on database to be send to the sorting table
 ![alt text](<Screenshot 2025-03-17 225620-2.png>)
 
-* Search for the recipe you need
+### Search for the recipe you need
 ![alt text](<Screenshot 2025-03-17 225827.png>)
