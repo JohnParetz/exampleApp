@@ -35,14 +35,14 @@ INSERT INTO potato_recipes (recipe_name, ingredients, instructions, prep_time, c
  
  ### Get These Programs:
 
-Node.js: For running the API. Get it from: nodejs.org
-PostgreSQL: For the database. Get it from: postgresql.org
-Visual Studio Code (VS Code): For writing code. Get it from: code.visualstudio.com
-Postam to test back end without front end requred. Get it from: postman.com
-Render: To view web service. Get if from: render.com
+* Node.js: For running the API. Get it from: nodejs.org
+* PostgreSQL: For the database. Get it from: postgresql.org
+* Visual Studio Code (VS Code): For writing code. Get it from: code.visualstudio.com
+* Postam to test back end without front end requred. Get it from: postman.com
+* Render: To view web service. Get if from: render.com
 
-### In VS Code setup and installations :
-Ctrl+Shift+P -> Git: Clone, paste project web address
+### In VS Code setup and installations:
+* Ctrl+Shift+P -> Git: Clone, paste project web address
 ### installetions
 ``` bash
 git clone https://github.come/exampleprojext.git
