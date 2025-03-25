@@ -50,7 +50,7 @@ npm install pg
 ```
 
 ## How it works (testing on back end, postmand needed)
-#### add your render url in postman to test the backend
+#### Add your render url in postman to test the backend
 
 ## API Endpoints
 
