@@ -3,7 +3,7 @@
 
 ## Overview
 
-This is the user interface for managing potato recipes. It lets you add, view, edit, and delete recipes, and browse them in a database-style view.
+This is the user interface for managing potato recipes. It lets you add, view, edit, and delete recipes, and browse them in a database-style view. Needs backend to function propery.
 
 ## How to Use
 

@@ -4,7 +4,7 @@
 
 ## Overview
 
-This is the API for managing potato recipes. It stores and retrieves recipes from a database.
+This is the API for managing potato recipes. It stores and retrieves recipes from a database. Needs front end for full web application functionality.
 
 ## Database
 
