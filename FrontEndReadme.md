@@ -20,7 +20,7 @@ This is the user interface for managing potato recipes. It lets you add, view, e
 
 ## How it works
 
-### Select your recipe, Add, edit, delte, Save recipe
+### Select your recipe, Add, edit, delete, Save recipe
 
 ![alt text](<Screenshot 2025-03-17 225529-1.png>)
 
