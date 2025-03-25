@@ -27,9 +27,6 @@ INSERT INTO potato_recipes (recipe_name, ingredients, instructions, prep_time, c
 ## example database info ##
 ('Classic Mashed Potatoes', 'Potatoes, Milk, Butter, Salt, Pepper', 'Boil potatoes, mash with milk and butter, season.', 15, 20, 4), ...
 ```
-## Notes
-
-* Used with a frontend
 
 ## What we need
  
@@ -38,11 +35,11 @@ INSERT INTO potato_recipes (recipe_name, ingredients, instructions, prep_time, c
 * Node.js: For running the API. Get it from: nodejs.org
 * PostgreSQL: For the database. Get it from: postgresql.org
 * Visual Studio Code (VS Code): For writing code. Get it from: code.visualstudio.com
-* Postam to test back end without front end requred. Get it from: postman.com
+* Postam to test back end without front end required. Get it from: postman.com
 * Render: To view web service. Get if from: render.com
 
 ### In VS Code setup and installations:
-* Ctrl+Shift+P -> Git: Clone, paste project web address
+* Ctrl+Shift+P -> Git: Clone -> paste project web address
 ### installetions
 ``` bash
 git clone https://github.come/exampleprojext.git
