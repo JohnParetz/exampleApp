@@ -7,7 +7,7 @@ This is the user interface for managing potato recipes. It lets you add, view, e
 
 ## How to Use
 
-1.  Open `https://recipe-app-mrts.onrender.com` in your browser
+1.  Open `https://recipe-app-mrts.onrender.com/` in your browser
 2.  Use the web service to to add or edit or delete recipes
 3.  Click "View Database" to see all recipes data
 
