@@ -96,7 +96,8 @@ app.get('/api/search', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-app.listen(port, () => {
+// comment out for security
+/*app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+*/
