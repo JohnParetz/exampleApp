@@ -79,11 +79,22 @@
             recipesList.innerHTML = '';
             recipes.forEach(recipe => {
                 const li = document.createElement('li');
-                li.innerHTML = `
-                    <strong>${recipe.recipe_name}</strong> -
-                    <button onclick="editRecipe(${recipe.recipe_id})">Edit</button>
-                    <button onclick="deleteRecipe(${recipe.recipe_id})">Delete</button>
-                `;
+
+                const strong = document.createElement('strong');
+                strong.textContent = recipe.recipe_name;
+                li.appendChild(strong);
+                li.appendChild(document.createTextNode(' - '));
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.onclick = () => editRecipe(recipe.recipe_id);
+                li.appendChild(editButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => deleteRecipe(recipe.recipe_id);
+                li.appendChild(deleteButton);
+
                 recipesList.appendChild(li);
             });
         }
