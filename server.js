@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const app = express();
-const port = process.env.PORT || 5000;
 const pool = require('./db');
 const path = require('path');
+const fs = require('fs'); // Add fs module
 
 app.use(express.json());
 app.use(helmet());
@@ -96,8 +96,17 @@ app.get('/api/search', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-// comment out for security
-/*app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-*/
+
+// HTTPS server
+try {
+    const httpsOptions = {
+        key: fs.readFileSync(process.env.HTTPS_KEY_PATH),
+        cert: fs.readFileSync(process.env.HTTPS_CERT_PATH),
+    };
+    app.listen(httpsOptions, () => {
+        console.log(`HTTPS server is running on port ${process.env.HTTPS_PORT || 443}`);
+    });
+} catch (err) {
+    console.error('Error starting HTTPS server:', err);
+
+}
