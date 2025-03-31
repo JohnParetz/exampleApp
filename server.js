@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet');
 const app = express();
 const port = process.env.PORT || 5000;
 const pool = require('./db');
 const path = require('path');
 
 app.use(express.json());
+app.use(helmet());
 app.use(express.static(path.join(__dirname, '')));
 
 app.get('/api/recipes', async (req, res) => {
