@@ -5,7 +5,11 @@ const app = express();
 const pool = require('./db');
 const path = require('path');
 const fs = require('fs');
-const selfsigned = require('selfsigned');
+const selfsigned = require('selfsigned'); // selfsigned
+
+// Generate self-signed certificates
+const attrs = [{ name: 'commonName', value: 'localhost' }];
+const pems = selfsigned.generate(attrs, { days: 365 });
 
 app.use(express.json());
 app.use(helmet());
@@ -98,15 +102,11 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
-
-const attrs = [{ name: 'commonName', value: 'localhost' }];
-const pems = selfsigned.generate(attrs, { days: 365 });
-
-// HTTPS server
+// HTTPS
 try {
     const httpsOptions = {
         key: pems.private, // private key
-        cert: pems.certificate,
+        cert: pems.certificate, // Use generated certificate
     };
     app.listen(httpsOptions, () => {
         console.log(`HTTPS server is running on port ${process.env.HTTPS_PORT || 443}`);
