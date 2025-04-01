@@ -73,8 +73,10 @@
         const servingSizeInput = document.getElementById('servingSize');
         const saveButton = document.getElementById('saveRecipe');
 
+        const baseUrl = 'https://recipe-app-mrts.onrender.com'; // Add this line
+
         async function fetchRecipes() {
-            const response = await fetch('/api/recipes');
+            const response = await fetch(`${baseUrl}/api/recipes`); // Change this line
             const recipes = await response.json();
             recipesList.innerHTML = '';
             recipes.forEach(recipe => {
@@ -110,7 +112,7 @@
             };
 
             const method = recipeIdInput.value ? 'PUT' : 'POST';
-            const url = recipeIdInput.value ? `/api/recipes/${recipeIdInput.value}` : '/api/recipes';
+            const url = recipeIdInput.value ? `${baseUrl}/api/recipes/${recipeIdInput.value}` : `${baseUrl}/api/recipes`; // Change this line
 
             const response = await fetch(url, {
                 method: method,
@@ -128,7 +130,7 @@
         }
 
         async function editRecipe(id) {
-            const response = await fetch(`/api/recipes/${id}`);
+            const response = await fetch(`${baseUrl}/api/recipes/${id}`); // Change this line
             const recipe = await response.json();
             recipeIdInput.value = recipe.recipe_id;
             recipeNameInput.value = recipe.recipe_name;
@@ -141,7 +143,7 @@
 
         async function deleteRecipe(id) {
             if (confirm('Are you sure you want to delete this recipe?')) {
-                const response = await fetch(`/api/recipes/${id}`, { method: 'DELETE' });
+                const response = await fetch(`${baseUrl}/api/recipes/${id}`, { method: 'DELETE' }); // Change this line
                 if (response.ok) {
                     fetchRecipes();
                 } else {
