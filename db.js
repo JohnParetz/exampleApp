@@ -3,9 +3,9 @@ const { Pool } = require('pg');
 
 const pool = new Pool({
     user: process.env.DB_USER || "jmparet",
-    host: process.env.DB_HOST || "dpg-cuh3hgpu0jms73fu27j0-a",
-    database: process.env.DB_NAME || "newapp_u3ga",
-    password: process.env.DB_PASSWORD || "QBI8WWH0EmyToU1ApTdDEgJvdiEUYlxq",
+    host: process.env.DB_HOST || "dpg-cvcal7hc1ekc73ep60p0-a.ohio-postgres.render.com",
+    database: process.env.DB_NAME || "recipe_qqe5",
+    password: process.env.DB_PASSWORD || "4m2a1h1ECI1pUooD1mah8XFYrnQvCVMI",
     port: process.env.DB_PORT || 5432,
 });
 
