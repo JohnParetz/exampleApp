@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, '')));
 
-
 app.get('/api/recipes', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM potato_recipes');
@@ -96,7 +95,6 @@ app.get('/api/search', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 const port = process.env.PORT || 3000;
 
