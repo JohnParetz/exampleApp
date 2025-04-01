@@ -4,11 +4,12 @@ const helmet = require('helmet');
 const app = express();
 const pool = require('./db');
 const path = require('path');
+const cors = require('cors'); 
 
+app.use(cors()); 
 app.use(express.json());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, '')));
-
 
 app.get('/api/recipes', async (req, res) => {
     try {
