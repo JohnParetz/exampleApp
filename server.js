@@ -4,12 +4,11 @@ const helmet = require('helmet');
 const app = express();
 const pool = require('./db');
 const path = require('path');
-const fs = require('fs');
-const selfsigned = require('selfsigned'); // selfsigned
 
 app.use(express.json());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, '')));
+
 
 app.get('/api/recipes', async (req, res) => {
     try {
@@ -99,18 +98,8 @@ app.get('/api/search', async (req, res) => {
 });
 
 
-const attrs = [{ name: 'commonName', value: 'localhost' }];
-const pems = selfsigned.generate(attrs, { days: 365 });
+const port = process.env.PORT || 3000;
 
-// HTTPS
-try {
-    const httpsOptions = {
-        key: pems.private, // private key
-        cert: pems.certificate, // Use generated certificate
-    };
-    app.listen(httpsOptions, () => {
-        console.log(`HTTPS server is running on port ${process.env.HTTPS_PORT || 443}`);
-    });
-} catch (err) {
-    console.error('Error starting HTTPS server:', err);
-}
+app.listen(port, () => {
+    console.log(`HTTP server is running on port ${port}`);
+});
