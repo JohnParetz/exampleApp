@@ -12,8 +12,22 @@ const pool = new Pool({
     },
 });
 
-pool.connect()
-    .then(() => console.log('DB connected'))
-    .catch(err => console.error('DB error:', err));
+const connectWithTimeout = async () => {
+    const timeout = 5000; // 5 seconds timeout
+    const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Database connection timeout')), timeout)
+    );
 
-module.exports = pool;
+    try {
+        await Promise.race([pool.connect(), timeoutPromise]);
+        console.log('DB connected successfully');
+
+        // Test query
+        const result = await pool.query('SELECT 1');
+        console.log('Database test query successful:', result.rows);
+    } catch (err) {
+        console.error('DB connection error:', err);
+    }
+};
+
+connectWithTimeout();
