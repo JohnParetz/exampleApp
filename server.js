@@ -4,7 +4,8 @@ const helmet = require('helmet');
 const app = express();
 const pool = require('./db');
 const path = require('path');
-const fs = require('fs'); // Add fs module
+const fs = require('fs');
+const selfsigned = require('selfsigned'); // selfsigned
 
 app.use(express.json());
 app.use(helmet());
@@ -97,16 +98,19 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
-// HTTPS server
+
+const attrs = [{ name: 'commonName', value: 'localhost' }];
+const pems = selfsigned.generate(attrs, { days: 365 });
+
+// HTTPS
 try {
     const httpsOptions = {
-        key: fs.readFileSync(process.env.HTTPS_KEY_PATH),
-        cert: fs.readFileSync(process.env.HTTPS_CERT_PATH),
+        key: pems.private, // private key
+        cert: pems.certificate, // Use generated certificate
     };
     app.listen(httpsOptions, () => {
         console.log(`HTTPS server is running on port ${process.env.HTTPS_PORT || 443}`);
     });
 } catch (err) {
     console.error('Error starting HTTPS server:', err);
-
 }
