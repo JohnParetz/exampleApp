@@ -28,6 +28,11 @@
       font-weight: bold;
       color: #333;
     }
+
+    #status {
+      color: red;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
@@ -38,45 +43,65 @@
     <input type="text" id="notifIcon" placeholder="Icon URL (optional)">
     <button id="sendNotification">Send Notification</button>
     <div class="notification-count" id="notifCountDisplay">Notifications sent: 0</div>
+    <div id="status"></div>
   </div>
 
   <script>
     let notifCount = 0;
 
-    document.getElementById("sendNotification").addEventListener("click", () => {
-      const title = document.getElementById("notifTitle").value.trim();
-      const message = document.getElementById("notifMessage").value.trim();
-      const icon = document.getElementById("notifIcon").value.trim() || "https://emoji.gg/assets/emoji/2790-checkmark.png";
+    document.addEventListener("DOMContentLoaded", () => {
+      const button = document.getElementById("sendNotification");
+      const statusDisplay = document.getElementById("status");
 
-      if (!message) {
-        alert("Please enter a message.");
+      if (!("Notification" in window)) {
+        statusDisplay.textContent = "This browser does not support desktop notifications.";
+        button.disabled = true;
         return;
       }
 
-      if (Notification.permission === "granted") {
-        scheduleNotification(title, message, icon);
-      } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            scheduleNotification(title, message, icon);
-          } else {
-            alert("Notification permission denied.");
-          }
-        });
-      } else {
-        alert("Notifications are blocked. Enable them in your browser settings.");
-      }
+      button.addEventListener("click", () => {
+        const title = document.getElementById("notifTitle").value.trim();
+        const message = document.getElementById("notifMessage").value.trim();
+        const icon = document.getElementById("notifIcon").value.trim() || "https://emoji.gg/assets/emoji/2790-checkmark.png";
+
+        if (!message) {
+          alert("Please enter a message.");
+          return;
+        }
+
+        if (Notification.permission === "granted") {
+          scheduleNotification(title, message, icon);
+        } else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+              scheduleNotification(title, message, icon);
+            } else {
+              statusDisplay.textContent = "Notification permission denied.";
+            }
+          });
+        } else {
+          statusDisplay.textContent = "Notifications are blocked. Enable them in your browser settings.";
+        }
+      });
     });
 
     function scheduleNotification(title, message, icon) {
-      setTimeout(() => {
-        new Notification(title || "Custom Alert", {
-          body: message,
-          icon: icon
-        });
+      document.getElementById("status").textContent = "Sending notification in 5 seconds...";
 
-        notifCount++;
-        document.getElementById("notifCountDisplay").textContent = `Notifications sent: ${notifCount}`;
+      setTimeout(() => {
+        try {
+          new Notification(title || "Custom Alert", {
+            body: message,
+            icon: icon
+          });
+
+          notifCount++;
+          document.getElementById("notifCountDisplay").textContent = `Notifications sent: ${notifCount}`;
+          document.getElementById("status").textContent = "";
+        } catch (e) {
+          document.getElementById("status").textContent = "Failed to send notification.";
+          console.error("Notification error:", e);
+        }
       }, 5000);
     }
   </script>
