@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Notification</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .notification-container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .notification-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .notification-count {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="notification-container">
+    <h2>Send a Custom Notification</h2>
+    <input type="text" id="notifTitle" placeholder="Notification Title">
+    <input type="text" id="notifMessage" placeholder="Notification Message">
+    <input type="text" id="notifIcon" placeholder="Icon URL (optional)">
+    <button id="sendNotification">Send Notification</button>
+    <div class="notification-count" id="notifCountDisplay">Notifications sent: 0</div>
+  </div>
+
+  <script>
+    let notifCount = 0;
+
+    document.getElementById("sendNotification").addEventListener("click", () => {
+      const title = document.getElementById("notifTitle").value.trim();
+      const message = document.getElementById("notifMessage").value.trim();
+      const icon = document.getElementById("notifIcon").value.trim() || "https://emoji.gg/assets/emoji/2790-checkmark.png";
+
+      if (!message) {
+        alert("Please enter a message.");
+        return;
+      }
+
+      if (Notification.permission === "granted") {
+        scheduleNotification(title, message, icon);
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            scheduleNotification(title, message, icon);
+          } else {
+            alert("Notification permission denied.");
+          }
+        });
+      } else {
+        alert("Notifications are blocked. Enable them in your browser settings.");
+      }
+    });
+
+    function scheduleNotification(title, message, icon) {
+      setTimeout(() => {
+        new Notification(title || "Custom Alert", {
+          body: message,
+          icon: icon
+        });
+
+        notifCount++;
+        document.getElementById("notifCountDisplay").textContent = `Notifications sent: ${notifCount}`;
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
