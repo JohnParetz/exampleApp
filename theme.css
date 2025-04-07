@@ -1,44 +1,50 @@
+
 body {
-    font-family: sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     margin: 20px;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
 }
 
-#recipe-form, #recipe-list {
+#recipe-form, #recipe-list, .notification-container {
     margin-bottom: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #333;
 }
 
-#recipe-form h2, #recipe-list h2 {
+#recipe-form h2, #recipe-list h2, .notification-container h2, h1 {
     margin-top: 0;
-    color: #333;
+    color: #4b0082;
 }
 
 input[type="text"], textarea, input[type="number"], select {
     width: calc(100% - 20px);
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 15px;
     box-sizing: border-box;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 1rem;
 }
 
-button {
-    padding: 12px 20px;
-    background-color: #007bff;
+button, a button {
+    padding: 12px 24px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
+button:hover, a button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 ul {
@@ -49,7 +55,7 @@ ul {
 li {
     margin-bottom: 10px;
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
 }
 
 li:last-child {
@@ -57,22 +63,37 @@ li:last-child {
 }
 
 li button {
-    margin-left: 5px;
-    padding: 8px 12px;
-    font-size: 0.9em; 
+    margin-left: 8px;
+    padding: 8px 14px;
+    font-size: 0.9em;
+    background-color: #6a11cb;
+    color: #fff;
 }
 
-a button {
-  padding: 12px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
+#notifCountDisplay, #status {
+    color: #4b0082;
 }
 
-a button:hover{
-    background-color: #0056b3;
+#search-container input, #search-container button {
+    font-size: 1rem;
+}
+
+#searchInput {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 250px;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
 }
